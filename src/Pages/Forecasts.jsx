@@ -7,6 +7,12 @@ import { Link } from 'react-router-dom';
 
 const Forecasts = ({foreCastData,day,setDay}) => {
 
+    if(foreCastData===undefined){
+        return <>
+            <div className='text-blue-500 text-lg h-screen text-center my-36'>Please enter a place/city to see forecasts</div>
+        </>
+    }
+
     const [isCelsius,setIsCelsius] = useState(true);
     let d = new Date(foreCastData[day].date);
     let f = d.getDay();
@@ -20,7 +26,7 @@ const Forecasts = ({foreCastData,day,setDay}) => {
         5:"Friday",
         6:"Saturday",
     }
-    
+
   return (
     <>
     <h1 className='text-xl font-bold text-center my-4'>Average day by day data</h1>

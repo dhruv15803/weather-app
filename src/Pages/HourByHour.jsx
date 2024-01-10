@@ -4,6 +4,13 @@ import { FaGreaterThan } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const HourByHour = ({foreCastData,day}) => {
+
+    if(foreCastData===undefined){
+        return <>
+            <div className='text-blue-500 text-lg h-screen text-center my-36'>Please enter a place/city to see forecasts</div>
+        </>
+    }
+    
     const [hourIndex,setHourIndex] = useState(0);
     const [isCelsius , setIsCelsius] = useState(true);
     let hour_by_hour = foreCastData[day].hour[hourIndex];
