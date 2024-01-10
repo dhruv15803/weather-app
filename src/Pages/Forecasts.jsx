@@ -20,7 +20,7 @@ const Forecasts = ({foreCastData,day,setDay}) => {
         5:"Friday",
         6:"Saturday",
     }
-
+    
   return (
     <>
     <h1 className='text-xl font-bold text-center my-4'>Average day by day data</h1>
@@ -73,4 +73,4 @@ const Forecasts = ({foreCastData,day,setDay}) => {
   )
 }
 
-export default Forecasts
+export default Forecasts;
