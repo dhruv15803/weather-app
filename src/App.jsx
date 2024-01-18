@@ -26,6 +26,8 @@ function App() {
       const response = await fetch(`http://api.weatherapi.com/v1/${isForecast ? "forecast":"current"}.json?key=765ea109af1c4e2f9db121152240601&q=${city}&days=${parseInt(foreCastDays) + 1}&aqi=yes`);
       if(response.status!==200){
         setInvalidCityMessage('Please enter a valid city name');
+        setIsLoading(false);
+        setIsFetchData(false);
         setTimeout(()=>{
           setInvalidCityMessage("");
         },3000)
