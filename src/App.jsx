@@ -15,10 +15,14 @@ function App() {
   const [isForecast,setIsForecast] = useState(false);
   const [foreCastDays,setForeCastDays] = useState(1);
   const [day,setDay] = useState(0);
+  const [isLoading,setIsLoading] = useState(false);
+  const [isFetchData,setIsFetchData] = useState(false);
 
   const fetchWeatherData = async (e)=>{
     e.preventDefault();
     try {
+      setIsLoading(true);
+      setIsFetchData(true);
       const response = await fetch(`http://api.weatherapi.com/v1/${isForecast ? "forecast":"current"}.json?key=765ea109af1c4e2f9db121152240601&q=${city}&days=${parseInt(foreCastDays) + 1}&aqi=yes`);
       if(response.status!==200){
         setInvalidCityMessage('Please enter a valid city name');
@@ -29,6 +33,7 @@ function App() {
       }
       const data = await response.json();
       setCurrentWeatherData(data);
+      setIsLoading(false);
     } catch (error) {
       console.log('fetching error:- ',error); 
     }
@@ -44,6 +49,7 @@ console.log(currentWeatherData);
       <Routes>
         <Route path="/" element={<Layout/>}>
           <Route index element={<Home
+          isLoading={isLoading}
            city={city}
            setCity={setCity}
            fetchWeatherData={fetchWeatherData}
@@ -53,6 +59,7 @@ console.log(currentWeatherData);
            setIsForecast={setIsForecast}
            foreCastDays={foreCastDays}
            setForeCastDays={setForeCastDays}
+           isFetchData={isFetchData}
           />}/>
           <Route path="forecasts" element={<Forecasts day={day} setDay={setDay} foreCastData={currentWeatherData?.forecast?.forecastday}/>}/>
           <Route path="forecasts/hourly" element={<HourByHour day={day} foreCastData = {currentWeatherData?.forecast?.forecastday}/>}/>
